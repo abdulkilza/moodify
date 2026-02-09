@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mood Jadi Lagu</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.8s;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  color: white;
+}
+
+.card {
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.15);
+  border-radius: 24px;
+  padding: 30px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  animation: pop 0.8s ease;
+}
+
+@keyframes pop {
+  from {transform: scale(0.8); opacity: 0;}
+  to {transform: scale(1); opacity: 1;}
+}
+
+h1 {
+  text-align: center;
+  font-weight: 700;
+}
+
+p {
+  text-align: center;
+  opacity: 0.9;
+}
+
+select, button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 15px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  outline: none;
+}
+
+select {
+  background: rgba(255,255,255,0.9);
+}
+
+button {
+  background: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #eaeaea;
+}
+
+.result {
+  margin-top: 25px;
+  text-align: center;
+  animation: fade 0.5s ease;
+}
+
+@keyframes fade {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.song {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.quote {
+  font-style: italic;
+  margin-top: 8px;
+}
+
+.spotify {
+  margin-top: 15px;
+  display: inline-block;
+  padding: 10px 18px;
+  background: #1DB954;
+  color: white;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>🎵 Mood Jadi Lagu</h1>
+  <p>Pilih mood kamu, biar lagunya yang nyambung</p>
+
+  <select id="mood">
+    <option value="">-- Pilih Mood --</option>
+    <option value="senang">😊 Senang</option>
+    <option value="galau">😔 Galau</option>
+    <option value="semangat">🔥 Semangat</option>
+    <option value="tenang">🌙 Tenang</option>
+    <option value="fokus">🎧 Fokus</option>
+    <option value="capek">😪 Capek</option>
+  </select>
+
+  <button onclick="generate()">Cari Lagu</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+function generate() {
+  const mood = document.getElementById("mood").value;
+  const result = document.getElementById("result");
+
+  const data = {
+    senang: {
+      song: "Happy — Pharrell Williams",
+      quote: "Nikmati hari ini, kamu pantas bahagia ✨",
+      bg: "linear-gradient(135deg, #f7971e, #ffd200)",
+      link: "https://open.spotify.com/search/Happy%20Pharrell%20Williams"
+    },
+    galau: {
+      song: "Fix You — Coldplay",
+      quote: "Pelan-pelan, semua luka akan sembuh 🤍",
+      bg: "linear-gradient(135deg, #232526, #414345)",
+      link: "https://open.spotify.com/search/Fix%20You%20Coldplay"
+    },
+    semangat: {
+      song: "Believer — Imagine Dragons",
+      quote: "Gas terus, jangan ragu sama diri sendiri 🚀",
+      bg: "linear-gradient(135deg, #ff512f, #dd2476)",
+      link: "https://open.spotify.com/search/Believer%20Imagine%20Dragons"
+    },
+    tenang: {
+      song: "Location Unknown — HONNE",
+      quote: "Tarik napas, dunia nggak sekejam itu 🌿",
+      bg: "linear-gradient(135deg, #2193b0, #6dd5ed)",
+      link: "https://open.spotify.com/search/Location%20Unknown%20Honne"
+    },
+    fokus: {
+      song: "Lo-fi Beats",
+      quote: "Fokus sedikit, hasilnya banyak 📚",
+      bg: "linear-gradient(135deg, #4568dc, #b06ab3)",
+      link: "https://open.spotify.com/search/lofi%20beats"
+    },
+    capek: {
+      song: "Better Days — OneRepublic",
+      quote: "Istirahat itu bukan menyerah 💙",
+      bg: "linear-gradient(135deg, #2c3e50, #4ca1af)",
+      link: "https://open.spotify.com/search/Better%20Days%20OneRepublic"
+    }
+  };
+
+  if (!mood) {
+    result.innerHTML = "<p>⚠️ Pilih mood dulu ya</p>";
+    return;
+  }
+
+  document.body.style.background = data[mood].bg;
+
+  result.innerHTML = `
+    <div class="song">🎧 ${data[mood].song}</div>
+    <div class="quote">“${data[mood].quote}”</div>
+    <a class="spotify" href="${data[mood].link}" target="_blank">▶ Play on Spotify</a>
+  `;
+}
+</script>
+
+</body>
+</html>
